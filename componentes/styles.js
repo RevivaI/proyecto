@@ -37,7 +37,15 @@ export const styles = StyleSheet.create({
       color:'#fff',
       textAlign:'center',
     },
-
+  container: {
+     paddingTop: 23
+  },
+  input: {
+     margin: 15,
+     height: 40,
+     borderColor: '#7a42f4',
+     borderWidth: 1
+  },
   submitButton: {
      backgroundColor: '#7a42f4',
      padding: 10,

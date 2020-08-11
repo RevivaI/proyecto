@@ -1,8 +1,72 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet, Button } from 'react-native'
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-class Inputs extends Component {
- state = {
+function HomeScreen({navigation}) {
+  //Home
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Button
+        title="Iniciar Sesión"
+        onPress={() => navigation.navigate('Login')}
+      />
+    </View>
+  );
+}
+function DetailsScreen({navigation}) {
+  //Login
+  return (
+    <View style={styles.container}>
+      <Text>Usuario:</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Ingrese Usuario"
+        onChangeText={(val) => setName(val)}
+      />
+      <Text>Contraseña:</Text>
+      <TextInput
+        keyboardType="numeric"
+        style={styles.input}
+        placeholder="Ingrese Contraseña"
+        onChangeText={(val) => setAge(val)}
+      />
+      <Button
+        title="Iniciar Sesión"
+        onPress={() => navigation.navigate('Lobby')}
+      />
+    </View>
+  );
+}
+function LobbyScreen({navigation}) {
+  //Lobby
+  return (
+    <View style={styles.container}>
+      <Button
+        title="Nueva venta"
+        onPress={() => navigation.navigate('Venta')}
+      />
+      <Button title="Buscar" onPress={() => navigation.navigate('Busqueda')} />
+    </View>
+  );
+}
+function Ventap1Screen({navigation}) {
+  //Ingreso de venta (Cliente nuevo/antiguo)
+  return (
+    <View style={styles.container}>
+      <Button
+        title="Registrar cliente"
+        onPress={() => navigation.navigate('Registrar')}
+      />
+      <Button
+        title="Cliente registado"
+        onPress={() => navigation.navigate('Registrado')}
+      />
+    </View>
+  );
+}
+function RegistroClienteScreen({navigation}) {
+  state = {
     rut: '',
     nombre: '',
     ig: ''
@@ -35,7 +99,7 @@ class Inputs extends Component {
              placeholderTextColor = "#9a73ef"
              autoCapitalize = "none"
              onChangeText = {this.handlenombre}/>
-             
+
           <TextInput style = {styles.input}
                 underlineColorAndroid = "transparent"
                 placeholder = "ig"
@@ -52,27 +116,71 @@ class Inputs extends Component {
           </TouchableOpacity>
        </View>
     )
- }
+  }
 }
-export default Inputs
+function Ventap2Screen({navigation}) {
+  //Datos para venta
+  return (
+    <View style={styles.container}>
+      <Text>Datos de venta</Text>
+      <Button
+        title="Finalizar Venta"
+        onPress={() => navigation.navigate('Lobby')}
+      />
+    </View>
+  );
+}
+function ValidacionRegScreen({navigation}) {
+  //Validacion datos cliente antiguo
+  return (
+    <View style={styles.container}>
+      <Text>Ingrese datos del cliente</Text>
+      <Button title="Validar datos" />
+      <Button title="Siguiente" onPress={() => navigation.navigate('Venta ')} />
+    </View>
+  );
+}
+function SearchScreen({navigation}) {
+  //Panel de busqueda
+
+  return (
+    <View style={styles.container}>
+      <Text>Seleccione apartado</Text>
+      <Button title="Buscar" />
+    </View>
+  );
+}
+const Stack = createStackNavigator();
+
+function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Bendise" component={HomeScreen} />
+        <Stack.Screen name="Login" component={DetailsScreen} />
+        <Stack.Screen name="Lobby" component={LobbyScreen} />
+        <Stack.Screen name="Venta" component={Ventap1Screen} />
+        <Stack.Screen name="Venta " component={Ventap2Screen} />
+        <Stack.Screen name="Registrar" component={RegistroClienteScreen} />
+        <Stack.Screen name="Registrado" component={ValidacionRegScreen} />
+        <Stack.Screen name="Busqueda" component={SearchScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 const styles = StyleSheet.create({
- container: {
-    paddingTop: 23
- },
- input: {
-    margin: 15,
-    height: 40,
-    borderColor: '#7a42f4',
-    borderWidth: 1
- },
- submitButton: {
-    backgroundColor: '#7a42f4',
-    padding: 10,
-    margin: 15,
-    height: 40,
- },
- submitButtonText:{
-    color: 'white'
- }
-})
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#777',
+    padding: 8,
+    margin: 10,
+    width: 200,
+  },
+});
+export default App;

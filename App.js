@@ -1,63 +1,78 @@
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity, TextInput, StyleSheet } from 'react-native'
 
-import * as React from 'react';
-import {StyleSheet, View, Text, Button, TextInput } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+class Inputs extends Component {
+ state = {
+    rut: '',
+    nombre: '',
+    ig: ''
+ }
+ handleig= (text) => {
+    this.setState({ ig: text })
+ }
+ handlenombre = (text) => {
+    this.setState({ nombre: text })
+ }
+ handlerut= (text) => {
+    this.setState({ rut: text })
+ }
+ login = (rut,ig,nomb) => {
+    alert('rut: ' + rut + ' ig: ' + ig+ ' nombre: ' + nomb)
+ }
+ render() {
+    return (
+       <View style = {styles.container}>
+          <TextInput style = {styles.input}
+             underlineColorAndroid = "transparent"
+             placeholder = "rut"
+             placeholderTextColor = "#9a73ef"
+             autoCapitalize = "none"
+             onChangeText = {this.handlerut}/>
 
-function HomeScreen({ navigation }) {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Button
-        title="Agregar Pedido"
-        onPress={() => navigation.navigate('Nuevo Pedido')}
-      />
+          <TextInput style = {styles.input}
+             underlineColorAndroid = "transparent"
+             placeholder = "nombre"
+             placeholderTextColor = "#9a73ef"
+             autoCapitalize = "none"
+             onChangeText = {this.handlenombre}/>
+             
+          <TextInput style = {styles.input}
+                underlineColorAndroid = "transparent"
+                placeholder = "ig"
+                placeholderTextColor = "#9a73ef"
+                autoCapitalize = "none"
+                onChangeText = {this.handleig}/>
 
-      <Button
-        title="Menu"
-        onPress={() => navigation.navigate('Nuevo Pedido')}
-      />
-    </View>
-  );
+          <TouchableOpacity
+             style = {styles.submitButton}
+             onPress = {
+                () => this.login(this.state.rut, this.state.ig, this.state.nombre)
+             }>
+             <Text style = {styles.submitButtonText}> Submit </Text>
+          </TouchableOpacity>
+       </View>
+    )
+ }
 }
-function DetailsScreen({navigation}) {
-  return (
-    <View style={styles.container}>
-    <Text>Enter name:</Text>
-      <TextInput style={styles.input} placeholder='ingresar dato' onChangeText={(val)=>setName(val)}/>
-      <Text>Enter name:</Text>
-      <TextInput
-      keyboardType='numeric'
-      style={styles.input} placeholder='ingresar dato' onChangeText={(val)=>setAge(val)}/>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
-    </View>
-  );
-}
-
-const Stack = createStackNavigator();
-
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Nuevo Pedido" component={DetailsScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
+export default Inputs
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  input:{
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin:10,
-    width: 200,
-  },
-});
-export default App;
+ container: {
+    paddingTop: 23
+ },
+ input: {
+    margin: 15,
+    height: 40,
+    borderColor: '#7a42f4',
+    borderWidth: 1
+ },
+ submitButton: {
+    backgroundColor: '#7a42f4',
+    padding: 10,
+    margin: 15,
+    height: 40,
+ },
+ submitButtonText:{
+    color: 'white'
+ }
+})

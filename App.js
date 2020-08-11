@@ -19,7 +19,7 @@ function HomeScreen({ navigation }) {
     </View>
   );
 }
-function DetailsScreen() {
+function DetailsScreen({navigation}) {
   return (
     <View style={styles.container}>
     <Text>Enter name:</Text>
@@ -28,6 +28,7 @@ function DetailsScreen() {
       <TextInput
       keyboardType='numeric'
       style={styles.input} placeholder='ingresar dato' onChangeText={(val)=>setAge(val)}/>
+      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
     </View>
   );
 }

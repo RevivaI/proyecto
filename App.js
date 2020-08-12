@@ -1,5 +1,7 @@
-import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TextInput, StyleSheet, Button } from 'react-native'
+/* eslint-disable no-undef */
+/* eslint-disable react-native/no-inline-styles */
+import React, {Component} from 'react';
+import {StyleSheet, View, Text, Button, TextInput, TouchableOpacity} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -65,7 +67,8 @@ function Ventap1Screen({navigation}) {
     </View>
   );
 }
-function RegistroClienteScreen({navigation}) {
+
+class Inputs extends Component {
   state = {
     rut: '',
     nombre: '',
@@ -116,7 +119,14 @@ function RegistroClienteScreen({navigation}) {
           </TouchableOpacity>
        </View>
     )
-  }
+ }
+}
+
+function RegistroClienteScreen({navigation}) {
+  //Registro de cliente nuevo
+  return (
+    <Inputs/>
+  );
 }
 function Ventap2Screen({navigation}) {
   //Datos para venta

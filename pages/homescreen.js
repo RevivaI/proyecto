@@ -1,21 +1,60 @@
-import  * as React from 'react';
-import { View, Text, Button} from 'react-native';
+*Home Screen With buttons to navigate to diffrent options*/
+import React from 'react';
+import { View } from 'react-native';
+import Mybutton from './components/Mybutton';
+import Mytext from './components/Mytext';
 import Realm from 'realm';
-import styles from './styles';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 let realm;
 
-export function HomeScreen({navigation}) {
+export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    realm = new Realm({
+      path: 'UserDatabase.realm',
+      schema: [
+        {
+          name: 'user_details',
+          properties: {
+            user_id: { type: 'int', default: 0 },
+            user_name: 'string',
+            user_contact: 'string',
+            user_address: 'string',
+          },
+        },
+      ],
+    });
+  }
+
+  render() {
     return (
-    <View style={styles.container}>
-      <Button
-        title="Agregar Pedido"
-        onPress={() => navigation.navigate('Nuevo Pedido')}/>
-      <Button
-        title="Menu"
-        onPress={() => navigation.navigate('Nuevo Pedid')}
-      />
-    </View>
-  );
-};
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: 'white',
+          flexDirection: 'column',
+        }}>
+        <Mytext text="RealM Example" />
+        <Mybutton
+          title="Register"
+          customClick={() => this.props.navigation.navigate('Register')}
+        />
+        <Mybutton
+          title="Update"
+          customClick={() => this.props.navigation.navigate('Update')}
+        />
+        <Mybutton
+          title="View"
+          customClick={() => this.props.navigation.navigate('View')}
+        />
+        <Mybutton
+          title="View All"
+          customClick={() => this.props.navigation.navigate('ViewAll')}
+        />
+        <Mybutton
+          title="Delete"
+          customClick={() => this.props.navigation.navigate('Delete')}
+        />
+      </View>
+    );
+  }
+}
